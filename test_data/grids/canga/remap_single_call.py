@@ -100,10 +100,6 @@ def create_XML(file1, file2, total_steps):
 
     tree = ET.ElementTree(e)
     for item in list(e):
-        if (item.attrib['name']=="my coloring"):
-            item.attrib['value']="25";
-        if (item.attrib['name']=="peer coloring"):
-            item.attrib['value']="33";
         if (item.attrib['name']=="initial step"):
             item.attrib['value']=str(start_step);
         if (item.attrib['name']=="save every"):
@@ -119,12 +115,14 @@ def create_XML(file1, file2, total_steps):
     for item in list(f):
         if (item.attrib['name']=="input file prefix"):
             item.attrib['value']=canga_folder+"/"
-        if (item.attrib['name']=="input file"):
+        if (item.attrib['name']=="input file 1"):
             item.attrib['value']=file1;
+        if (item.attrib['name']=="input file 2"):
+            item.attrib['value']=file2;
         if (item.attrib['name']=="output file prefix"):
             item.attrib['value']=output_folder+"/"
         if (item.attrib['name']=="output file"):
-            item.attrib['value']=file2;
+            item.attrib['value']="";
 
     # have remap now
     for item in list(g):
@@ -134,54 +132,97 @@ def create_XML(file1, file2, total_steps):
             item.attrib['value']=str(porder);
         if (item.attrib['name']=="curvature porder"):
             item.attrib['value']=str(porder);
-    tree.write(open(output_folder+'/parameters_comparison_25.xml', 'wb'))
+    tree.write(open(output_folder+'/parameters_comparison.xml', 'wb'))
 
-    tree = ET.ElementTree(e)
-    for item in list(e):
-        if (item.attrib['name']=="my coloring"):
-            item.attrib['value']="33";
-        if (item.attrib['name']=="peer coloring"):
-            item.attrib['value']="25";
-        if (item.attrib['name']=="initial step"):
-            item.attrib['value']=str(start_step);
-        if (item.attrib['name']=="final step"):
-            item.attrib['value']=str(total_steps);
-        if (item.attrib['name']=="io"):
-            f=item
-        if (item.attrib['name']=="remap"):
-            g=item
-    
-    # have io now
-    for item in list(f):
-        if (item.attrib['name']=="input file prefix"):
-            item.attrib['value']=canga_folder+"/"
-        if (item.attrib['name']=="input file"):
-            item.attrib['value']=file2;
-        if (item.attrib['name']=="output file prefix"):
-            item.attrib['value']=output_folder+"/"
-        if (item.attrib['name']=="output file"):
-            item.attrib['value']=file1;
-
-    # have remap now
-    for item in list(g):
-        if (item.attrib['name']=="optimization algorithm"):
-            item.attrib['value']=opt_name;
-        if (item.attrib['name']=="porder"):
-            item.attrib['value']=str(porder);
-        if (item.attrib['name']=="curvature porder"):
-            item.attrib['value']=str(porder);
-    tree.write(open(output_folder+'/parameters_comparison_33.xml', 'wb'))
+#def create_XML(file1, file2, total_steps):
+#    e = ET.parse(canga_folder+'/../../../parameter_lists/canga/parameters_comparison_template.xml').getroot()
+#
+#    tree = ET.ElementTree(e)
+#    for item in list(e):
+#        if (item.attrib['name']=="my coloring"):
+#            item.attrib['value']="25";
+#        if (item.attrib['name']=="peer coloring"):
+#            item.attrib['value']="33";
+#        if (item.attrib['name']=="initial step"):
+#            item.attrib['value']=str(start_step);
+#        if (item.attrib['name']=="save every"):
+#            item.attrib['value']=str(args.save_every);
+#        if (item.attrib['name']=="final step"):
+#            item.attrib['value']=str(total_steps);
+#        if (item.attrib['name']=="io"):
+#            f=item
+#        if (item.attrib['name']=="remap"):
+#            g=item
+#    
+#    # have io now
+#    for item in list(f):
+#        if (item.attrib['name']=="input file prefix"):
+#            item.attrib['value']=canga_folder+"/"
+#        if (item.attrib['name']=="input file"):
+#            item.attrib['value']=file1;
+#        if (item.attrib['name']=="output file prefix"):
+#            item.attrib['value']=output_folder+"/"
+#        if (item.attrib['name']=="output file"):
+#            item.attrib['value']=file2;
+#
+#    # have remap now
+#    for item in list(g):
+#        if (item.attrib['name']=="optimization algorithm"):
+#            item.attrib['value']=opt_name;
+#        if (item.attrib['name']=="porder"):
+#            item.attrib['value']=str(porder);
+#        if (item.attrib['name']=="curvature porder"):
+#            item.attrib['value']=str(porder);
+#    tree.write(open(output_folder+'/parameters_comparison_25.xml', 'wb'))
+#
+#    tree = ET.ElementTree(e)
+#    for item in list(e):
+#        if (item.attrib['name']=="my coloring"):
+#            item.attrib['value']="33";
+#        if (item.attrib['name']=="peer coloring"):
+#            item.attrib['value']="25";
+#        if (item.attrib['name']=="initial step"):
+#            item.attrib['value']=str(start_step);
+#        if (item.attrib['name']=="final step"):
+#            item.attrib['value']=str(total_steps);
+#        if (item.attrib['name']=="io"):
+#            f=item
+#        if (item.attrib['name']=="remap"):
+#            g=item
+#    
+#    # have io now
+#    for item in list(f):
+#        if (item.attrib['name']=="input file prefix"):
+#            item.attrib['value']=canga_folder+"/"
+#        if (item.attrib['name']=="input file"):
+#            item.attrib['value']=file2;
+#        if (item.attrib['name']=="output file prefix"):
+#            item.attrib['value']=output_folder+"/"
+#        if (item.attrib['name']=="output file"):
+#            item.attrib['value']=file1;
+#
+#    # have remap now
+#    for item in list(g):
+#        if (item.attrib['name']=="optimization algorithm"):
+#            item.attrib['value']=opt_name;
+#        if (item.attrib['name']=="porder"):
+#            item.attrib['value']=str(porder);
+#        if (item.attrib['name']=="curvature porder"):
+#            item.attrib['value']=str(porder);
+#    tree.write(open(output_folder+'/parameters_comparison_33.xml', 'wb'))
 
 def run_transfer(opt_name):
     try:
         if (opt_name=="OBFET"): # OBFET only works in serial
             my_env=dict(os.environ)
-            commands = ["mpirun", "-np", "1", exe_folder+"/cangaRemoteRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison_25.xml",":","-np", "1", exe_folder+"/cangaRemoteRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison_33.xml","--kokkos-threads=32"]
+            #commands = ["mpirun", "-np", "1", exe_folder+"/cangaRemoteRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison_25.xml",":","-np", "1", exe_folder+"/cangaRemoteRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison_33.xml","--kokkos-threads=32"]
+            commands = [exe_folder+"/cangaRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison.xml","--kokkos-threads=32"]
             print(" ".join(commands))
             output = subprocess.check_output(commands, env=my_env)
         else:
             my_env=dict(os.environ)
-            commands = ["mpirun", "--bind-to", "none", "-np", "1", exe_folder+"/cangaRemoteRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison_25.xml","--kokkos-threads=7",":","-np", "1", exe_folder+"/cangaRemoteRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison_33.xml","--kokkos-threads=7"]
+            #commands = ["mpirun", "--bind-to", "none", "-np", "1", exe_folder+"/cangaRemoteRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison_25.xml","--kokkos-threads=7",":","-np", "1", exe_folder+"/cangaRemoteRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison_33.xml","--kokkos-threads=7"]
+            commands = [exe_folder+"/cangaRemapMultiIter.exe","--i="+output_folder+"/parameters_comparison.xml","--kokkos-threads=8"]
             print(" ".join(commands))
             #my_env['OMP_PROC_BIND']='spread'
             #my_env['OMP_PLACES']='threads'

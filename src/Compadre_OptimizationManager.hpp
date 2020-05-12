@@ -89,6 +89,8 @@ class OptimizationManager {
 
         OptimizationObject _optimization_object;
 
+	    Teuchos::RCP<Teuchos::Time> OptimizationTime;
+
 	public:
 
 		OptimizationManager( const particles_type* source_particles, particles_type* target_particles, 
@@ -98,7 +100,11 @@ class OptimizationManager {
 			    _source_particles(source_particles), _target_particles(target_particles), _source_field_num(source_field_num), 
                 _target_field_num(target_field_num), _source_weighting_name(source_weighting_name), 
                 _target_weighting_name(target_weighting_name), _neighborhood_info(neighborhood_info), 
-                _optimization_object(optimization_object) {}
+                _optimization_object(optimization_object) {
+                
+	        OptimizationTime = Teuchos::TimeMonitor::getNewCounter("Optimization Time");
+
+        }
 
 		virtual ~OptimizationManager() {};
 

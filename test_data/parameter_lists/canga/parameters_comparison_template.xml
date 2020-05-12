@@ -8,6 +8,8 @@
   <ParameterList name="io">
     <Parameter name="input file prefix" type="string" value="../test_data/grids/canga/Cubed-Sphere/"/>
     <Parameter name="input file" type="string" value="outCSMesh_ne16_TPW_CFR_TPO.g"/>
+    <Parameter name="input file 1" type="string" value="outCSMesh_ne16_TPW_CFR_TPO.g"/>
+    <Parameter name="input file 2" type="string" value="outCSMesh_ne16_TPW_CFR_TPO.g"/>
     <Parameter name="target file prefix" type="string" value="../test_data/grids/canga/CVT-MPAS/"/>
     <Parameter name="target file" type="string" value="outICODMesh_ne16.g"/>
     <Parameter name="output file prefix" type="string" value="../test_data/"/>
