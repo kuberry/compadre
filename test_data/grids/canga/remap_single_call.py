@@ -24,7 +24,7 @@ import argparse
 parser = argparse.ArgumentParser(description='Run CANGA example for remap comparison.')
 
 parser.add_argument('--total-iterations', dest='total_iterations', type=int, default=10, nargs='?', help='total round trip remaps (forth and back)')
-parser.add_argument('--evaluate-every', dest='evaluate_every', type=int, default=10, nargs='?', help='store to evaluate every n iterations')
+parser.add_argument('--save-every', dest='save_every', type=int, default=1, nargs='?', help='store every n iterations')
 parser.add_argument('--mesh-1', dest='mesh_1', type=int, default=0, nargs='?', help='mesh 1 number')
 parser.add_argument('--mesh-1-type', dest='mesh_1_type', type=str, default="CS", nargs='?', help='mesh 1 type {CS,CVT,RLL}')
 parser.add_argument('--mesh-2', dest='mesh_2', type=int, default=0, nargs='?', help='mesh 2 number')
@@ -106,6 +106,8 @@ def create_XML(file1, file2, total_steps):
             item.attrib['value']="33";
         if (item.attrib['name']=="initial step"):
             item.attrib['value']=str(start_step);
+        if (item.attrib['name']=="save every"):
+            item.attrib['value']=str(args.save_every);
         if (item.attrib['name']=="final step"):
             item.attrib['value']=str(total_steps);
         if (item.attrib['name']=="io"):
@@ -211,7 +213,7 @@ f1_head, f1_tail = os.path.splitext(f1)
 f2_head, f2_tail = os.path.splitext(f2)
 #print(f1_head,f2_head)
 time.sleep(1)
-newname=consolidate(total_iterations, canga_folder+"/"+f1_head+'.g', canga_folder+"/"+f2_head+'.g', output_folder)
+newname=consolidate(total_iterations, args.save_every, canga_folder+"/"+f1_head+'.g', canga_folder+"/"+f2_head+'.g', output_folder)
 #reorder_file_by_field(newname,'_remap_src')
 #reorder_file_by_field(newname,'_remap_tgt')
 
