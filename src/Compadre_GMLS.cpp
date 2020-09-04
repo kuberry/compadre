@@ -243,7 +243,7 @@ void GMLS::generatePolynomialCoefficients(const int number_of_batches, const boo
              *    MANIFOLD Problems
              */
 
-            if (!_orthonormal_tangent_space_provided) { // user did not specify orthonormal tangent directions, so we approximate them first
+            //if (!_orthonormal_tangent_space_provided) { // user did not specify orthonormal tangent directions, so we approximate them first
                 // coarse tangent plane approximation construction of P^T*P
                 _pm.CallFunctorWithTeamThreads<ComputeCoarseTangentPlane>(this_batch_size, *this);
 
@@ -281,7 +281,7 @@ void GMLS::generatePolynomialCoefficients(const int number_of_batches, const boo
                     _host_T = Kokkos::create_mirror_view(_T);
                     Kokkos::deep_copy(_host_T, _T);
                 }
-            }
+            //}
 
             // this time assembling curvature PsqrtW matrix is using a highly accurate approximation of the tangent, previously calculated
             // assembles the P*sqrt(weights) matrix and constructs sqrt(weights)*Identity for curvature

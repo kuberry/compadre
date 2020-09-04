@@ -549,6 +549,21 @@ protected:
         return val;
     }
 
+    //! Returns a component of the global coordinate after transformation from local to global under the orthonormal basis V^T.
+    KOKKOS_INLINE_FUNCTION
+    double convertLocalToGlobalCoordinate(const XYZ local_coord, const int dim, const int local_dimensions, const scratch_matrix_right_type* V) const {
+        // only written for 2d manifold in 3d space
+        double val;
+        if (dim == 0 && local_dimensions==2) { // 2D problem with 1D manifold
+            val = local_coord.x * (*V)(0, dim);
+        } else if (dim == 0) { // 3D problem with 2D manifold
+            val = local_coord.x * ((*V)(0, dim) + (*V)(1, dim));
+        } else if (dim == 1) { // 3D problem with 2D manifold
+            val = local_coord.y * ((*V)(0, dim) + (*V)(1, dim));
+        }
+        return val;
+    }
+
     //! Handles offset from operation input/output + extra evaluation sites
     int getTargetOffsetIndexHost(const int lro_num, const int input_component, const int output_component, const int additional_evaluation_local_index = 0) const {
         return ( _total_alpha_values*additional_evaluation_local_index 
