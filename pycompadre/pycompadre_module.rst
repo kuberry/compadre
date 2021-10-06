@@ -1,7 +1,18 @@
 .. automodule:: pycompadre
    :members:
-   :undoc-members:
-   :inherited-members:
 
-.. autosummary::
-   :toctree: stubs
+Classes
+=======
+
+pycompadre.GMLS
+---------------
+.. autoclass:: pycompadre.GMLS
+   :members:
+   :noindex:
+
+pycompadre.ParticleHelper
+--------------------------
+.. autoclass:: pycompadre.ParticleHelper
+   :members:
+   :noindex:
+
