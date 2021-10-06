@@ -639,8 +639,8 @@ using overload_cast_ = pybind11::detail::overload_cast_impl<Args...>;
 
 PYBIND11_MODULE(pycompadre, m) {
     m.doc() = R"pbdoc(
-PYCOMPADRE: Compadre Toolkit for Python
-----------------------------------------
+PyCOMPADRE: Compadre Toolkit
+-----------------------------
 
 Important:
 Be sure to initialize Kokkos before setting up any objects from this library,
