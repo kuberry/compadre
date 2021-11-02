@@ -23,8 +23,8 @@ jobs:
         python-version: [ '2.7', '3.7', ]
         os: [ubuntu-latest, macos-latest, ]
         exclude:
-        - {os: macos-latest, python: '2.7'}
-        - {os: ubuntu-latest, python: '2.7'}
+        - {os: macos-latest, python-version: '2.7'}
+        - {os: ubuntu-latest, python-version: '2.7'}
 
     steps:
     - uses: actions/checkout@v2
@@ -55,4 +55,9 @@ jobs:
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}}
+      
+    - uses: actions/upload-artifact@v2
+      with:
+        name: test-log
+        path: /Users/runner/work/compadre/compadre/build/Testing/Temporary/LastTest.log
       
