@@ -16,7 +16,11 @@ jobs:
     # well on Windows or Mac.  You can convert this to a matrix build if you need
     # cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: [ '2.7', '3.7', ]
+        os: [ubuntu-latest, macos-latest, ]
 
     steps:
     - uses: actions/checkout@v2
@@ -30,7 +34,6 @@ jobs:
         -DCompadre_DEBUG:BOOL=OFF 
         -DCompadre_USE_PYTHON:BOOL=ON 
         -DCompadre_USE_MPI:BOOL=OFF 
-        -- -j 2
         ${{github.workspace}} 
 
     - name: Build
