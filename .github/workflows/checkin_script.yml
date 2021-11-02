@@ -57,7 +57,8 @@ jobs:
       run: ctest -C ${{env.BUILD_TYPE}}
       
     - uses: actions/upload-artifact@v2
+      if: failure()
       with:
-        name: test-log
-        path: /Users/runner/work/compadre/compadre/build/Testing/Temporary/LastTest.log
+        name: test-failure.log
+        path: ${{github.workspace}}/build/Testing/Temporary/LastTest.log
       
