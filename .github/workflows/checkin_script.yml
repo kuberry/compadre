@@ -16,11 +16,15 @@ jobs:
     # well on Windows or Mac.  You can convert this to a matrix build if you need
     # cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    name: ${{ matrix.TARGET }} with Python ${{ matrix.python }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         python-version: [ '2.7', '3.7', ]
         os: [ubuntu-latest, macos-latest, ]
+        exclude:
+        - {os: macos-latest, python: '2.7'}
+        - {os: ubuntu-latest, python: '2.7'}
 
     steps:
     - uses: actions/checkout@v2
@@ -31,7 +35,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
         architecture: x64
 
-    - name: Configure CMake
+    - name: CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: cmake -B ${{github.workspace}}/build 
