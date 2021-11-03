@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.10.0 FATAL_ERROR)
 # get Compadre_VERSION
 file(STRINGS ${CMAKE_CURRENT_LIST_DIR}/cmake/Compadre_Version.txt Compadre_VERSION)
 
-# Called at the top of every CMakeLists.txt file
+# Called at the top of every CMakeLists.txt file #
 macro(include_tribits_build)
   if (${PROJECT_NAME}_TRIBITS_DIR)
     include("${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.tribits.cmake")
