@@ -38,9 +38,9 @@ jobs:
         cd ${{github.workspace}}/doc/html/
         git init
         git remote add origin https://github.com/kuberry/compadre.git
-        git checkout --orphan gh-pages
         git config --global user.email "pakuber@sandia.gov"
         git config --global user.name "Paul Kuberry"
+        git checkout --orphan gh-pages
         git add .nojekyll *
         git commit -m "Update documentation."
         git push -f origin gh-pages
