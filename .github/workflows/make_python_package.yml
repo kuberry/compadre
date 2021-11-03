@@ -25,5 +25,6 @@ jobs:
           
     - uses: actions/upload-artifact@v2
       with:
+        name: pycompadre.tar.gz
         path: ${{github.workspace}}/dist/*.tar.gz
       
