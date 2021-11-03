@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.10.0 FATAL_ERROR)
 # get Compadre_VERSION
 file(STRINGS ${CMAKE_CURRENT_LIST_DIR}/cmake/Compadre_Version.txt Compadre_VERSION)
 
-# Called at the top of every CMakeLists.txt file
+# Called at the top of every CMakeLists.txt file #
 macro(include_tribits_build)
   if (${PROJECT_NAME}_TRIBITS_DIR)
     include("${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.tribits.cmake")
@@ -79,6 +79,18 @@ else() # Raw CMake Project
   SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
   SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
   SET(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_LIBDIR} ${CMAKE_INSTALL_RPATH})
+  if (NOT(CMAKE_BUILD_TYPE))
+    set(CMAKE_BUILD_TYPE "")
+  endif()
+  if (CMAKE_BUILD_TYPE STREQUAL "")
+    if (NOT(CMAKE_CXX_FLAGS) OR (CMAKE_CXX_FLAGS STREQUAL ""))
+      set(CMAKE_CXX_FLAGS " -O3 -g")
+    endif()
+    message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
+  else()
+      string(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_UPPER)
+      message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS_${CMAKE_BUILD_TYPE_UPPER}} ${CMAKE_CXX_FLAGS}")
+  endif()
 
   # RPATH should always include the folder it is called from
   bob_option(PYTHON_CALLING_BUILD "Python setuptools calling build" OFF)
@@ -372,7 +384,6 @@ else() # Raw CMake Project
   endif()
 
 
-
   #MPI (Not really needed, only used so that if a kokkos-tool was built with MPI, it won't segfault)
   if (Compadre_USE_MPI)
     FIND_PACKAGE(MPI QUIET)
@@ -398,6 +409,7 @@ else() # Raw CMake Project
 
   bob_option(Compadre_TESTS "Compile Compadre tests" ON)
   bob_option(Compadre_EXAMPLES "Compile Compadre examples" "${Compadre_TESTS}")
+  bob_option(Compadre_USE_ARBORX "Use ArborX for neighbor search" OFF)
 
 
 endif() 
@@ -420,6 +432,7 @@ set(Compadre_KEY_BOOLS
     Compadre_USE_CUDA
     Compadre_USE_MPI
     Compadre_USE_PYTHON
+    Compadre_USE_ARBORX
    )
 
 set(Compadre_KEY_INTS
