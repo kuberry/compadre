@@ -1,10 +1,10 @@
-name: Upload Python Package
+name: Upload Parallel Python Package (pycompadre)
 
 on: workflow_dispatch
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Setup python
@@ -27,7 +27,7 @@ jobs:
 #      with:
 #        name: pycompadre.tar.gz
 #        path: ${{github.workspace}}/dist/*.tar.gz
-      
+    # https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
