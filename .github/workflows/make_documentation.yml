@@ -1,0 +1,43 @@
+name: Make documentation
+
+on: workflow_dispatch
+
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        architecture: x64
+        
+    - name: Install Python dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        pip install sphinx
+        pip install sphinx_rtd_theme
+        python ${{github.workspace}}/setup.py install
+        cd ${{github.workspace}}/pycompadre/sphinx/
+        make clean
+        make html
+        cd ${{github.workspace}}
+        
+    - name: Create doxygen docs
+      run: |
+        sudo apt-get install doxygen
+        cd ${{github.workspace}}/doc
+        ./build_docs
+        cd ${{github.workspace}}
+          
+    - name: Move Sphinx documentation to docs
+      run: |
+        mv ${{github.workspace}}/pycompadre/sphinx/build/html/* ${{github.workspace}}/doc/html/pycompadre/
+        tar -czvf ${{github.workspace}}/documentation.tar.gz  ${{github.workspace}}/doc/html/*
+        
+    - uses: actions/upload-artifact@v2
+      with:
+        name: documentation.tar.gz
+        path: ${{github.workspace}}/documentation.tar.gz
+     
