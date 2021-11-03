@@ -1,4 +1,4 @@
-name: CMake + C++ checkin
+name: Check In for Push/PR
 
 on:
   push:
