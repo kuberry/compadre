@@ -23,7 +23,7 @@ jobs:
         python-version: [ '2.x', '3.x', ]
         os: [ubuntu-latest, macos-latest, ]
         exclude:
-        - {os: ubuntu-latest, python-version: '2.7'}
+        - {os: ubuntu-latest, python-version: '2.x'}
 
     steps:
     - uses: actions/checkout@v2
