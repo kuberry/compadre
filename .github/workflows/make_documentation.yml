@@ -32,8 +32,6 @@ jobs:
         cd ${{github.workspace}}
           
     - name: Move Sphinx documentation to docs
-      permissions:
-        issues: write 
       run: |
         mv ${{github.workspace}}/pycompadre/sphinx/build/html/* ${{github.workspace}}/doc/html/pycompadre/
         tar -czvf ${{github.workspace}}/documentation.tar.gz  ${{github.workspace}}/doc/html/*
