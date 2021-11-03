@@ -18,7 +18,8 @@ jobs:
         python3 -m pip install --upgrade pip
         pip install sphinx
         pip install sphinx_rtd_theme
-        python ${{github.workspace}}/setup.py install
+        echo $'Compadre_USE_MPI:BOOL=OFF\nCompadre_EXAMPLES:BOOL=OFF\nCompadre_TESTS:BOOL=OFF' > cmake_opts.txt
+        CMAKE_CONFIG_FILE=cmake_opts.txt python ${{github.workspace}}/setup.py install
         cd ${{github.workspace}}/pycompadre/sphinx/
         make clean
         make html
@@ -42,7 +43,7 @@ jobs:
         git checkout --orphan gh-pages
         git add .nojekyll *
         git commit -m "Update documentation."
-        git push -f https://${{ secrets.GITHUB_TOKEN }}@github.com/kuberry/compadre.git gh-pages
+        git push -f https://${{ secrets.GITHUB_TOKEN }}:${{ secrets.GITHUB_TOKEN }}@github.com/kuberry/compadre.git gh-pages
         
 #    - name: Prepare artifact
 #      run: |
