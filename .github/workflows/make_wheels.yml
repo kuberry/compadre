@@ -77,7 +77,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: osx-wheels
-        path: dist/pycompadre*.whl
+        path: dist/
     # https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@master
