@@ -7,6 +7,7 @@ jobs:
   manylinux:
     name: wheel_creation_linux
     runs-on: ${{ matrix.os }}
+    needs: osx
     strategy:
       fail-fast: false
       matrix:
@@ -43,6 +44,10 @@ jobs:
       with:
         name: manylinux-wheels
         path: dist/pycompadre*.whl
+    - uses: actions/download-artifact@master
+      with:
+        name: osx-wheels
+        path: dist/
     # https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@master
@@ -78,8 +83,3 @@ jobs:
       with:
         name: osx-wheels
         path: dist/
-    # https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
-    - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.PIP_PYCOMPADRE_SECRET }}
