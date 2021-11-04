@@ -23,27 +23,27 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install twine wheel setuptools
-    - name: Build manylinux Python wheels
-      uses: RalfG/python-wheels-manylinux-build@v0.3.3-manylinux2010_x86_64
-      with:
-        python-versions: 'cp36-cp36m cp37-cp37m cp38-cp38 cp39-cp39'
-        build-requirements: 'cython'
-        package-path: ''
-        pip-wheel-args: ''
-        # When locally testing, --no-deps flag is necessary (PyUtilib dependency will trigger an error otherwise)
-    - name: Consolidate wheels
-      run: |
-        sudo test -d dist || mkdir -v dist
-        sudo find . -name \*.whl | grep -v /dist/ | xargs -n1 -i mv -v "{}" dist/
-    - name: Delete linux wheels
-      run: |
-        sudo rm -rfv dist/*-linux_x86_64.whl
-        rm ${{github.workspace}}/dist/cmake*
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: manylinux-wheels
-        path: dist/pycompadre*.whl
+    #- name: Build manylinux Python wheels
+    #  uses: RalfG/python-wheels-manylinux-build@v0.3.3-manylinux2010_x86_64
+    #  with:
+    #    python-versions: 'cp36-cp36m cp37-cp37m cp38-cp38 cp39-cp39'
+    #    build-requirements: 'cython'
+    #    package-path: ''
+    #    pip-wheel-args: ''
+    #    # When locally testing, --no-deps flag is necessary (PyUtilib dependency will trigger an error otherwise)
+    #- name: Consolidate wheels
+    #  run: |
+    #    sudo test -d dist || mkdir -v dist
+    #    sudo find . -name \*.whl | grep -v /dist/ | xargs -n1 -i mv -v "{}" dist/
+    #- name: Delete linux wheels
+    #  run: |
+    #    sudo rm -rfv dist/*-linux_x86_64.whl
+    #    rm ${{github.workspace}}/dist/cmake*
+    #- name: Upload artifact
+    #  uses: actions/upload-artifact@v1
+    #  with:
+    #    name: manylinux-wheels
+    #    path: dist/pycompadre*.whl
     - uses: actions/download-artifact@master
       with:
         name: osx-wheels
