@@ -38,7 +38,7 @@ jobs:
     - name: Delete linux wheels
       run: |
         sudo rm -rfv dist/*-linux_x86_64.whl
-        sudo rm -rfv dist/cmake*.whl
+        rm ${{github.workspace}}/dist/cmake*
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
