@@ -37,11 +37,17 @@ jobs:
     - name: Delete linux wheels
       run: |
         sudo rm -rfv dist/*-linux_x86_64.whl
+        sudo rm -rfv dist/cmake*.whl
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
         name: manylinux-wheels
-        path: dist
+        path: dist/pycompadre*.whl
+    # https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PIP_PYCOMPADRE_SECRET }}
         
   osx:
     name: wheel_creation_osx
@@ -71,4 +77,9 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: osx-wheels
-        path: dist
+        path: dist/pycompadre*.whl
+    # https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PIP_PYCOMPADRE_SECRET }}
