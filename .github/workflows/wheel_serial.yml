@@ -38,10 +38,11 @@ jobs:
       run: |
         sudo rm -rfv dist/*-linux_x86_64.whl
         rm ${{github.workspace}}/dist/cmake*
-        for f in `ls ${{github.workspace}}/dist/*.whl`;
-          do echo $f
-          new_fname="$(echo "$f" | sed s/pycompadre/pycompadre-serial/)"
-          echo $new_fname
+        for fname in `ls ${{github.workspace}}/dist/*.whl`;
+          do echo $fname
+          new_fname="$(echo "$fname" | sed s/pycompadre/pycompadre-serial/)"
+          mv $f $new_fname
+          ls ${{github.workspace}}/dist
         done
     - name: Upload artifact
       uses: actions/upload-artifact@v2
