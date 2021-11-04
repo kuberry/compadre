@@ -41,7 +41,7 @@ jobs:
         for fname in `ls ${{github.workspace}}/dist/*.whl`;
           do echo $fname
           new_fname="$(echo "$fname" | sed s/pycompadre/pycompadre-serial/)"
-          mv $f $new_fname
+          mv $fname $new_fname
           ls ${{github.workspace}}/dist
         done
     - name: Upload artifact
