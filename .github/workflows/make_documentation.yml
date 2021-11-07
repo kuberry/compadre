@@ -43,7 +43,7 @@ jobs:
         git checkout --orphan gh-pages
         git add .nojekyll *
         git commit -m "Update documentation."
-        git push -f https://${{ secrets.GITHUB_TOKEN }}:${{ secrets.GITHUB_TOKEN }}@github.com/sandialabs/compadre.git gh-pages
+        git push -f https://${{ secrets.GITHUB_TOKEN }}:${{ secrets.GITHUB_TOKEN }}@github.com/kuberry/compadre.git gh-pages
         
 #    - name: Prepare artifact
 #      run: |
@@ -52,3 +52,4 @@ jobs:
 #      with:
 #        name: documentation.tar.gz
 #        path: ${{github.workspace}}/documentation.tar.gz
+

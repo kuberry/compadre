@@ -25,6 +25,10 @@ jobs:
         exclude:
         - {os: ubuntu-latest, python-version: '2.x'}
         - {os: macos-latest, python-version: '3.x'}
+        include:
+        - os: macos-latest
+          python-version: '2.x'
+          EXTRA_PACKAGES: pathlib
 
     steps:
     - uses: actions/checkout@v2
@@ -38,7 +42,8 @@ jobs:
     - name: Install Python dependencies
       run: |
         python3 -m pip install --upgrade pip
-        pip install numpy
+        pip install numpy nose ${{ matrix.EXTRA_PACKAGES }} 
+
     - name: CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
@@ -65,3 +70,4 @@ jobs:
       with:
         name: test-failure.log
         path: ${{github.workspace}}/build/Testing/Temporary/LastTest.log
+
