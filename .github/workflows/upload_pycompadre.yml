@@ -28,8 +28,8 @@ jobs:
         name: pycompadre.tar.gz
         path: ${{github.workspace}}/dist/*.tar.gz
 
-    # https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
-    - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.PIP_PYCOMPADRE_SECRET }}
+    ## https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+    #- name: Publish distribution 📦 to PyPI
+    #  uses: pypa/gh-action-pypi-publish@master
+    #  with:
+    #    password: ${{ secrets.PIP_PYCOMPADRE_SECRET }}
