@@ -18,7 +18,7 @@ on:
 
 jobs:
         
-  manylinux:
+  manylinux_build:
     name: Linux wheels creation/test
     runs-on: ${{ matrix.os }}
     strategy:
@@ -81,10 +81,36 @@ jobs:
         name: manylinux-wheels-${{matrix.pycompadre-type}}
         path: dist/
         retention-days: 1
+        
+        
+  manylinux_test:
+    name: Linux wheels creation/test
+    runs-on: ${{ matrix.os }}
+    needs: manylinux_build
+    container: ${{ matrix.container }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        container: ['ubuntu:18.04', 'fedora:32', 'centos:centos6']
+        python-version: [3.6, 3.7, 3.8, 3.9]
+        pycompadre-type: ['pycompadre', 'pycompadre-serial']
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: manylinux-wheels-${{matrix.pycompadre-type}}
+        path: dist/
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip
     - name: Install pycompadre from artifact
       run: |
         cd ${{github.workspace}}/dist/
-        python3 -m pip -v -v -v install --no-cache `ls pycompadre*cp37*.whl`
+        python3 -m pip -v -v -v install --no-cache `ls pycompadre*cp${{ matrix.python-version }}*.whl`
         cd ${{github.workspace}}
     - name: Test pycompadre using unittests
       run: |
@@ -201,7 +227,7 @@ jobs:
       
   pypi:
     name: Upload all wheels to pypi
-    needs: [manylinux, osx_test]
+    needs: [manylinux_test, osx_test]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
