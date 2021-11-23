@@ -98,7 +98,8 @@ jobs:
     steps:
     - id: get-python-cp-name
       run: |
-        py_name=$(echo "${${{ matrix.python-version }}//./}")
+        py_ver=${{ matrix.python-version }}
+        py_name=$(echo "${py_ver//./}")
         echo "::set-output name=python-cp-name::$py_name"
     - uses: actions/download-artifact@v2
       with:
