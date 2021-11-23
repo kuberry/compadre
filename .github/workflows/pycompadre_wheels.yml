@@ -96,6 +96,10 @@ jobs:
         python-version: [3.6, 3.7, 3.8, 3.9]
         pycompadre-type: ['pycompadre', 'pycompadre-serial']
     steps:
+    - id: get-python-cp-name
+      run: |
+        py_name=$(echo "${${{ matrix.python-version }}//./}")
+        echo "::set-output name=python-cp-name::$py_name"
     - uses: actions/download-artifact@v2
       with:
         name: manylinux-wheels-${{matrix.pycompadre-type}}
@@ -110,7 +114,7 @@ jobs:
     - name: Install pycompadre from artifact
       run: |
         cd ${{github.workspace}}/dist/
-        python3 -m pip -v -v -v install --no-cache `ls pycompadre*cp${{ matrix.python-version }}*.whl`
+        python3 -m pip -v -v -v install --no-cache `ls pycompadre*cp${{steps.get-python-cp-name.outputs.python-cp-name}}*.whl`
         cd ${{github.workspace}}
     - name: Test pycompadre using unittests
       run: |
