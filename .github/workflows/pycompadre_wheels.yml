@@ -100,7 +100,7 @@ jobs:
       run: |
         pyver="${{ matrix.python-version }}"
         #pyname=`echo $pyver | sed 's/\.//'`
-        py_name=$(echo "${py_ver//./}")
+        pyname=$(echo "${pyver//./}")
         echo "::set-output name=pythoncpname::$pyname"
     - uses: actions/download-artifact@v2
       with:
