@@ -99,8 +99,8 @@ jobs:
     - id: get-python-cp-name
       run: |
         pyver="${{ matrix.python-version }}"
-        #pyname=`echo $pyver | sed 's/\.//'`
-        pyname=$(echo "${pyver//./}")
+        pyname=`echo $pyver | sed 's/\.//'`
+        #pyname=$(echo "${pyver//./}")
         echo "::set-output name=pythoncpname::$pyname"
     - uses: actions/download-artifact@v2
       with:
