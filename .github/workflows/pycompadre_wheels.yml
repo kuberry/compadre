@@ -93,12 +93,12 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         container: ['ubuntu:18.04', 'fedora:32', 'centos:centos6']
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: ['3.6', '3.7', '3.8', '3.9']
         pycompadre-type: ['pycompadre', 'pycompadre-serial']
     steps:
     - id: get-python-cp-name
       run: |
-        py_ver=${{ matrix.python-version }}
+        py_ver="${{ matrix.python-version }}"
         py_name=$(echo "${py_ver//./}")
         echo "::set-output name=python-cp-name::$py_name"
     - uses: actions/download-artifact@v2
